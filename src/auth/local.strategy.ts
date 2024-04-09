@@ -5,23 +5,19 @@ import { UserService } from '../user/user.service';
 import * as brypt from 'bcrypt';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy){
-    constructor(private readonly userService: UserService){
-        super(
-            { usernameField: 'email' },
-        );
-    }
+export class LocalStrategy extends PassportStrategy(Strategy) {
+  constructor(private readonly userService: UserService) {
+    super({ usernameField: 'email' });
+  }
 
-    async validate(email: string, password: string) {
-        const user= await this.userService.getUser(email);
-        if (user === undefined || user == null) throw new UnauthorizedException();
-        const isMatch = await brypt.compare(password, user.password);
-        if(user != undefined && isMatch) {
-            return user;
-        }
-        else{
-            throw new UnauthorizedException();
-        }
+  async validate(email: string, password: string) {
+    const user = await this.userService.getUser(email);
+    if (user === undefined || user == null) throw new UnauthorizedException();
+    const isMatch = await brypt.compare(password, user.password);
+    if (user != undefined && isMatch) {
+      return user;
+    } else {
+      throw new UnauthorizedException();
     }
-
+  }
 }

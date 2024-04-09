@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
@@ -8,28 +15,24 @@ import { UserService } from './user/user.service';
 
 @Controller('api')
 export class AppController {
-  constructor(private readonly authService : AuthService
-    , private readonly userService : UserService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post('/login')
   @UseGuards(AuthGuard('local'))
   async login(@Request() req) {
     console.log('appcontrollerlogin', req.user);
-    let user = req.user;
-
+    const user = req.user;
 
     // remove user.password;
     delete user.password;
 
-
-
-    
-
-
     // const user = "dbhfgijdebgjhd";
     const tokken = await this.authService.generateToken(user);
     console.log('appcontrollerlogintoken', tokken);
-    return{ token: tokken};
+    return { token: tokken };
   }
 
   @Post('/register')
@@ -37,18 +40,13 @@ export class AppController {
     console.log('appcontrollerregister', body);
     const user = await this.userService.getUser(body.email);
     console.log('appcontrollerregisteruser', user);
-    if(user == null) {
-        let newUser = await this.userService.saveUser(body);
-        console.log('appcontrollerregisternewuser', newUser);
-        // delete newUser.password;
+    if (user == null) {
+      const newUser = await this.userService.saveUser(body);
+      console.log('appcontrollerregisternewuser', newUser);
+      // delete newUser.password;
       return newUser;
-    }
-    else {
-      return "User already exists";
+    } else {
+      return 'User already exists';
     }
   }
-
-
-
-
 }
