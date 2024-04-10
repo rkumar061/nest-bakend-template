@@ -1,8 +1,8 @@
 {
-  "name": "pashion-baku",
+  "name": "template-backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "GrapeDawn",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
