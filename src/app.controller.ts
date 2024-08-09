@@ -10,7 +10,6 @@ import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
 import { RoleGuard } from './role.guard';
-import { CONSTANTS } from './constants';
 import { UserService } from './user/user.service';
 
 @Controller('api')

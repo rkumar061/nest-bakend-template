@@ -1,0 +1,6 @@
+SECREAT_KEY= 'secretKey'
+DB_HOST='localhost'
+DB_PORT=3306
+DB_USER='database user'
+DB_PASSWORD= 'database password'
+DB_NAME= 'database name'
