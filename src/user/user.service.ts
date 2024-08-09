@@ -31,6 +31,7 @@ export class UserService {
     let user = new UserEntity();
     user.email = body.email;
     user.password = await bcrypt.hash(body.password, saltRounds);
+    user.name = body.name;
     user = await this.userRepository.save(user);
     delete user.password;
     return user;
